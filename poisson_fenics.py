@@ -28,7 +28,9 @@ def main():
     v_test = fe.TestFunction(lagrange_polynomial_space_first_order)
 
     # Weak Form
-    forcing = fe.Constant(- FORCING_MAGNITUDE)
+    # forcing = fe.Constant(- FORCING_MAGNITUDE)
+    forcing = fe.Expression('x[0]*x[1]', degree = 1)
+    
     weak_form_lhs = fe.dot(fe.grad(u_trial), fe.grad(v_test)) * fe.dx
     weak_form_rhs = forcing * v_test * fe.dx
 
@@ -45,6 +47,9 @@ def main():
     plt.colorbar(c)
     fe.plot(mesh)
 
+    fe.vtkfile = fe.File('poisson/solution.pvd')
+    fe.vtkfile << u_solution
+    
     plt.show()
 
 if __name__ == "__main__":
