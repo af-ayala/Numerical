@@ -1,0 +1,33 @@
+// Estamos tratando de resolver:
+// -Delta u -f = 0
+
+border a(t=0, 4.5){x=6; y=t; label = 1;}
+border b(t=6, 0){x=t; y=4.5; label = 2;}
+border c(t=4.5, 0){x=0; y=t; label = 3;}
+border d(t=0, 6){x=t; y=0; label = 4;}
+
+border e(t=2.5, 3.5){x=5; y=t; label = 5;}
+border f1(t=5, 3){x=t; y=3.5; label = 6;}
+border g(t=3.5, 2.5){x=3; y=t; label = 7;}
+border h(t=3, 5){x=t; y=2.5; label = 8;}
+
+// Definir el dominio y malla
+mesh Th = buildmesh(a(50) + b(50) + c(50) + d(50) + e(-50) + f1(-50) + g(-50) + h(-50));
+
+// plot(Th);
+
+// Definir el espacio funcional de prueba (H)
+fespace Vh(Th, P1);
+Vh u, v;
+
+// Funcion f (rhs)
+func f = sin(pi*x)*sin(pi*y);   // Se puede cambiar a la funci�n
+
+// Decirle a freefem++ la forma variacional
+solve Poisson2D(u, v, solver = LU) = 
+int2d(Th) (dx(u) * dx(v) + dy(u)*dy(v)) - int2d(Th) (f*v) 
++ on(a,b,c,d, u= 0.3) + on(e,f1,g,h, u= 1.0);  // Condiciones de frontera
+
+plot(u);
+
+
