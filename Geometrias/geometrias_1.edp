@@ -1,0 +1,30 @@
+// Square es el cuadrado de lado 1, con su vertice inferior en el origen: (0,1) x (0,1)
+
+/*
+int m = 10;
+mesh Th = square(m,m);
+plot(Th);
+*/
+
+// [𝑥0, 𝑥1] × [𝑦0, 𝑦1]
+
+/* 
+real x0 = 1.2;
+real x1 = 1.8;
+real y0 = 0;
+real y1 = 1;
+int n = 5;
+real m = 20;
+mesh Th = square(n, m, [x0+(x1-x0)*x, y0+(y1-y0)*y]);
+*/
+
+real r = 1;
+border a(t=0, 2*pi){x=r*cos(t); y=r*sin(t); label=1;}
+// mesh Thwithhole = buildmesh(a(50));
+border b(t=0, 2*pi){x=0.3+0.3*cos(t); y=0.3*sin(t); label=1;}
+
+// plot(a(50) + b(40));
+
+// Enmallado stándar, considerando sentido de las agujas de reloj
+mesh Thwithouthole = buildmesh(a(50) + b(-30));
+plot(Thwithouthole);
