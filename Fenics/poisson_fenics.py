@@ -8,7 +8,6 @@ from fenics import *
 import matplotlib.pyplot as plt
 
 m = 50
-
 def main():
     
     # Definir el dominio y malla
