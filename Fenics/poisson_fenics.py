@@ -11,7 +11,6 @@ m = 50
 
 def main():
     
-    # Mesh and Finite Element Discretization
     # Definir el dominio y malla
     mesh = UnitSquareMesh(m, m)
     
@@ -31,7 +30,6 @@ def main():
     # a(u,v) - lv(f) = 0
     a = dot(grad(u), grad(v)) * dx    
     lv = f * v * dx
-
 
     # Condición de frontera (u=0 en todo el borde)
     def funcion_bool(x, on_boundary):

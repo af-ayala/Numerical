@@ -1,7 +1,7 @@
 // ================================================
 // Solución de Poisson 2D en FreeFem++
 // Estamos tratando de resolver:
-// -Delta u - f = 0, donde f=xy
+// -Delta u - f = 0, donde f=x*y
 // ================================================
 
 // Definir el dominio y malla
