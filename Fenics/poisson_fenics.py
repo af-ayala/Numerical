@@ -1,7 +1,7 @@
 # ================================================
 # Solución de Poisson 2D en Fenics
-#  Estamos tratando de resolver:
-#  -Delta u - f = 0, donde f=x*y
+# Estamos tratando de resolver:
+# -Delta u - f = 0, donde f=x*y
 # ================================================
 
 from fenics import *
