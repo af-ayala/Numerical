@@ -1,5 +1,5 @@
 # ================================================
-# Solución de Poisson 2D en Fenics
+# Solución de Ecuac. Poisson 2D en Fenics
 # Estamos tratando de resolver:
 # -Delta u - f = 0, donde f=x*y
 # ================================================
