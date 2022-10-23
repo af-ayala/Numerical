@@ -43,6 +43,7 @@ def main():
     plt.colorbar(c)
     # plot(mesh)
 
+    # Adding paraview output 
     vtkfile = File('poisson/solution.pvd')
     vtkfile << u_sol
     
