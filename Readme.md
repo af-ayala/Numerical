@@ -1,23 +1,21 @@
-# Install Fenics Windows 10
+# Install Fenics Windows
 
-1. https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=header
+1. Installar Virtual Box 
+https://www.virtualbox.org/wiki/Downloads
 
+2. Crear su ambiente de Linux
+https://www.youtube.com/watch?v=ZrHVHyIt-PY 
 
-2. Open Docker
+3. Descargue Anaconda para Linux
 
-3. Obtain Fenics:
-
-~~~
-curl -s https://get.fenicsproject.org | bash 
-~~~
-
-4. Activate Fenics:
-~~~
-fenicsproject run 
+4. Corra lo siguiente en su terminal
+~~~ 
+conda create -n fenicsproject -c conda-forge fenics
+source activate fenicsproject
 ~~~ 
 
-5. Test functionality:
+5. Pruebe que funcione
 ~~~
+cd UNI_MS_817/Fenics
 python3 poisson_fenics.py  
 ~~~
-
