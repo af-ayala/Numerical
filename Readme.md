@@ -14,8 +14,9 @@ Descargan el
 Luego ir a:
 https://docs.anaconda.com/anaconda/install/linux/
 
-shasum -a 256 /PATH/FILENAME
+~~~
 bash ~/Downloads/Anaconda3-2020.05-Linux-x86_64.sh
+~~~
 
 
 4. Corra lo siguiente en su terminal
