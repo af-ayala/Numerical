@@ -20,3 +20,5 @@ sudo apt-get install fenics
 cd Fenics/
 python3 poisson_fenics.py
 ~~~
+
+https://aula.upfic.pe/course/newzoom.php?sala=99913274233
