@@ -6,7 +6,17 @@ https://www.virtualbox.org/wiki/Downloads
 2. Crear su ambiente de Linux
 https://www.youtube.com/watch?v=ZrHVHyIt-PY 
 
-3. Descargue Anaconda para Linux
+3. Descargue Anaconda para Linux, para python >= 3.9
+https://www.anaconda.com/products/distribution 
+Descargan el
+64-Bit (x86) Installer (737 MB)
+
+Luego ir a:
+https://docs.anaconda.com/anaconda/install/linux/
+
+shasum -a 256 /PATH/FILENAME
+bash ~/Downloads/Anaconda3-2020.05-Linux-x86_64.sh
+
 
 4. Corra lo siguiente en su terminal
 ~~~ 
