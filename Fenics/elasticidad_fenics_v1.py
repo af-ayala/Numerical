@@ -122,7 +122,8 @@ s = sigma(u_sol) - 1/3 * tr(sigma(u_sol)) * Identity(d)
 von_Mises = sqrt(3/2 * inner(s,s))
 
 # Proyectas sobre un espacio de prueba
-von_Mises = project(von_Mises, V)
+espacio_Lagrange = FunctionSpace(mesh, 'Lagrange', 1)
+von_Mises = project(von_Mises, espacio_Lagrange)
 
 
 # Escribimos los resultados para visualizarlos en Paraview
