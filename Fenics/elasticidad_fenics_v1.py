@@ -48,6 +48,22 @@ T:  Es conocido como vector de traccion que nos ayuda a describir condiciones de
 Usualmente se escribe en funcion de las deformaciones (la + usada):
     <σ(u), ε(v)> = <f, v> + <T, v>
 
+
+---------------------------------------------------------------------
+Una vez calculamos los desplazamientos u:
+u_sol = Function(V)
+solve(a==L, u_sol, bc)
+
+Esta funcion es un campo vectorial de desplazamientos. 
+1. Tensor de esfuerzos
+s = σ(u) − 1/3 tr(σ(u)) I₃
+
+2. Ahora podemos los esfuerzos Von Mises, que nos define una medida escalar (en magnitud de los esfuerzos)
+ σ_M = √(3/2 s : s)
+
+---------------------------------------------------------------------
+
+
 '''
 
 from fenics import *
@@ -99,8 +115,21 @@ u_sol = Function(V)
 solve(a==L, u_sol, bc)
 
 
-# Adding paraview output 
-vtkfile = File('elasticidad/solution.pvd')
-vtkfile << u_sol
+# Calcular los esfuerzos s = σ(u) − 1/3 tr(σ(u)) I
+s = sigma(u_sol) - 1/3 * tr(sigma(u_sol)) * Identity(d)
 
-plot(u_sol, title='Desplazamiento', mode='displacement')
+# Calcular los esfuerzos de Von Mises σ_M = √(3/2 s : s)
+von_Mises = sqrt(3/2 * inner(s,s))
+
+# Proyectas sobre un espacio de prueba
+von_Mises = project(von_Mises, V)
+
+
+# Escribimos los resultados para visualizarlos en Paraview
+u_sol.rename("Desplazamiento", "")
+von_Mises.rename("Esfuerzos von mises", "")
+
+File("viga_empotrada/u.pvd") << u_sol
+File("viga_empotrada/s.pvd") << von_Mises
+
+
