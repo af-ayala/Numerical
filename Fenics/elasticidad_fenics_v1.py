@@ -70,14 +70,13 @@ from fenics import *
 import matplotlib.pyplot as plt
 
 # Variables del problema
-L = 1; W = 0.2
+L = 1
+W = 0.2
+
 mu = 1
+lambda_ = 1.25
 rho = 1      # unidad: kg/m3
-delta = W/L
-gamma = 0.4*delta**2
-beta = 1.25
-lambda_ = beta
-g = 9.81
+g =  0.016   # aceleracion debida a la gravedad
 
 
 # Creamos una malla para la geometria de tipo prisma
@@ -132,5 +131,11 @@ von_Mises.rename("Esfuerzos von mises", "")
 
 File("viga_empotrada/u.pvd") << u_sol
 File("viga_empotrada/s.pvd") << von_Mises
+
+archivo_deflexion = XDMFFile("viga_empotrada/deflexion.xdmf")
+archivo_deflexion.parameters["flush_output"] = True
+archivo_deflexion.parameters["functions_share_mesh"] = True
+archivo_deflexion.write(u_sol, 0.0)
+archivo_deflexion.write(von_Mises, 0.0)
 
 

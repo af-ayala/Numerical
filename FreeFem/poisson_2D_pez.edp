@@ -1,0 +1,41 @@
+// Pregunta 1 del examen parcial
+
+// Estamos tratando de resolver:
+// -Delta u - f = 0
+
+real a = 3, b = 1.5, c = 0.25, d = 1, ang = 30; //se recomienda b < a
+
+// Definir el dominio y malla
+real x1 = a*cos((180-ang)*pi/180);
+real y1 = b*sin((180-ang)*pi/180);
+
+// Cuerpo
+border F(t=-(180-ang)*pi/180, (180-ang)*pi/180){x=a*cos(t); y=b*sin(t);}
+
+// Cola
+border C1(t=0, d){x=x1-t; y=-x+y1+x1;}
+border C2(t=1, -1){x=x1-d; y=(y1+d)*t;}
+border C3(t=0, d){x=x1-d+t; y=x-y1-x1;}
+
+// Ojo
+border O(t=0,2*pi){x=0.6*a+c*cos(t); y=0.4*b+c*sin(t);}
+
+mesh Th=buildmesh(F(80) + C1(10) + C2(20) + C3(10) + O(-10));
+plot(Th);
+
+// // Definir el espacio funcional de prueba (H)
+fespace Vh(Th, P1);
+Vh u, v;
+
+// Función f (rhs)
+func f = sin(pi*x)*sin(pi*y);
+
+// Decirle a freefem++ la forma variacional
+solve Poisson(u, v, solver=LU) = 
+int2d(Th) (dx(u)*dx(v) + dy(u)*dy(v)) - int2d(Th) (f*v) 
++ on(F, C1, C2, C3, u=0);  // Condición de frontera
+
+plot(u);
+
+cout << "Verificando u(0.5,0.5) = " << u(0.5,0.5) << endl;
+cout << "Verificando u(0.23,0.15) = " << u(0.23,0.15) << endl;
