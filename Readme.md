@@ -22,3 +22,11 @@ python3 poisson_fenics.py
 ~~~
 
 https://aula.upfic.pe/course/newzoom.php?sala=99913274233
+
+
+# Trabajando con mallas en Fenics y Freefem
+
+1. Ejemplo de un dique en Gmsh:
+~~~
+https://www.pygimli.org/_examples_auto/1_meshing/plot_cad_tutorial.html
+~~~
