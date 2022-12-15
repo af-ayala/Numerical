@@ -1,0 +1,42 @@
+// Problema del flujo en una caja al mover la tapa.
+// Clase 12-13 del curso C817
+
+
+// Parametros
+
+int nn = 30;
+
+// La malla es sobre el cuadrado unitario
+mesh Th = square(nn,nn);
+
+plot(Th);
+
+// La forma débil es la misma que analizamos en Fenics
+
+// Espacio funcional
+// vector solucion: U = (u,v)
+// vector de prueba: Uh = (uu,vv)
+
+// Para las velocidades
+fespace Uh(Th, P1b);
+Uh u,v;
+Uh uu,vv;
+
+// Para las presiones
+fespace Ph(Th, P1);
+Ph p, pp;
+
+// Forma débil 
+solve stokes ([u, v, p], [uu, vv, pp])
+= int2d(Th)( dx(u)*dx(uu)
++ dy(u)*dy(uu) + dx(v)*dx(vv)
++ dy(v)*dy(vv 
++ dx(p)*uu + dy(p)*vv
++ pp*(dx(u) + dy(v))
+- 1e-10*p*pp
+)
++ on(1, 2, 4, u=0, v=0)
++ on(3, u=1, v=0);
+
+plot([u,v], p, wait=1);
+
