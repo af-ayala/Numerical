@@ -23,6 +23,19 @@ python3 poisson_fenics.py
 
 https://aula.upfic.pe/course/newzoom.php?sala=99913274233
 
+# Install FreeFem Windows
+
+1. Descargar el ejecutable y seguir los pasos de instalación
+https://www.ljll.math.upmc.fr/lehyaric/ffcs/install.htm
+
+# Install Gmsh Windows
+1. Descargar el ejecutable de la página siguiente, seleccionando la opción Windows
+https://gmsh.info/
+
+# Install Paraview Windows
+1. Descargar el ejecutable de la página siguiente, seleccionando la opción Windows
+https://www.paraview.org/download/
+
 
 # Trabajando con mallas en Fenics y Freefem
 
