@@ -1,4 +1,4 @@
-# Install Fenics Windows
+# Instalar Fenics en Windows - 2023
 
 1. Installar Virtual Box 
 https://www.virtualbox.org/wiki/Downloads
@@ -11,8 +11,12 @@ https://www.youtube.com/watch?v=ZrHVHyIt-PY
 ~~~
 sudo add-apt-repository ppa:fenics-packages/fenics
 ~~~
+
 ~~~
-sudo apt-get install fenics   
+sudo apt update
+sudo apt upgrade
+sudo apt-get install fenics
+sudo apt --fix-broken install   
 ~~~
 
 4. Pruebe:
