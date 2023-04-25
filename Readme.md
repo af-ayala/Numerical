@@ -25,8 +25,6 @@ cd Fenics/
 python3 poisson_fenics.py
 ~~~
 
-https://aula.upfic.pe/course/newzoom.php?sala=99913274233
-
 # Install FreeFem Windows
 
 1. Descargar el ejecutable y seguir los pasos de instalación
