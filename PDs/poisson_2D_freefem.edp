@@ -1,0 +1,37 @@
+/*
+* Estamos tratando de resolver:
+* -Δu(x,y) - f(x,y) = 0   .... (1)
+* Donde f(x,y) = xy
+*/
+
+// Define la malla
+mesh Th = square(20,20);
+plot(Th);
+
+// Definir f
+func f = x*y;
+
+// Definir el espacio de funciones, sabemos que no estamos resolviendo (1), sino su forma variacional
+// a(u,v) = lv(f)  .... (2)
+// a(u,v) - lv(f) = 0  .... (3)
+fespace Vh(Th, P1);  // escojemos el espacio de polinomios de grado <=1 
+Vh u, v;
+
+// Decir a freefem++ que resuelva (2)
+// Recordar:   a = integral(grad(u).grad(v))   ,   lv(f) = integral(f*v)
+
+// u(x,y) -> grad(u) = (du/dx, du/dy)
+// v(x,y) -> grad(v) = (dv/dx, dv/dy)
+// grad(u).grad(v) = du/dx*dv/dx + du/dy*dv/dy
+
+// la siguiente linea encuentra u con las condiciones de frontera dadas
+solve Poisson2D(u, v, solver=LU) =
+int2d(Th) ( dx(u)*dx(v) + dy(u)*dy(v) )  - int2d(Th) ( f*v ) 
++ on(1,2,3,4, u=0); // condición de frontera
+
+// Ahora puedo dibujar u
+plot(u);
+
+
+// Si deseo puedo imprimir valores de u, o bien puedo imprimir todo u
+cout << "El valor de u(0.5,0.4) = " << u(0.5,0.4) << endl;
