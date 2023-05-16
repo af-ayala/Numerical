@@ -1,0 +1,31 @@
+/* Cuadrado */ 
+
+// mesh Th = square(20,20);
+
+/* Rectángulo */ 
+
+// real x0 = 1.2;
+// real x1 = 1.8;
+// real y0 = 0;
+// real y1 = 1;
+// int n = 15;
+// real m = 40;
+// mesh Th = square(n, m, [x0+(x1-x0)*x, y0+(y1-y0)*y]);
+
+/* Círculo */ 
+border a(t=0, 2*pi){x=cos(t); y=sin(t); label=1;};
+// mesh Th = buildmesh(a(100));
+
+/* Dona */ 
+// border b(t=0, 2*pi){x=0.3*cos(t); y=0.3*sin(t); label=1;};
+// mesh Th = buildmesh(a(50) + b(-50)); 
+
+/*  Círculo con hueco en un lugar arbitrario */ 
+border b(t=0, 2*pi){x=-0.3 + 0.1*cos(t); y=0.2+0.2*sin(t); label=1;};
+border c(t=0, 2*pi){x=0.3 + 0.1*cos(t);  y=0.2+0.2*sin(t); label=1;};
+border d(t=0, 2*pi){x=0.1*cos(t);  y=0.1*sin(t); label=1;};
+border e(t=-0.5, 0.5){x=(1-d)*c*cos(st(t)); y=(1-d)*c*sin(st(t));} 
+mesh Th = buildmesh(a(50) + b(-50) + c(-50) + d(-20) + e(-20)); 
+
+
+plot(Th);
