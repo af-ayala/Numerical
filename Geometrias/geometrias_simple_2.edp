@@ -1,7 +1,36 @@
 border a(t=0, 2*pi) {x=cos(t); y=sin(t); label=1;}; //mesh Th = buildmesh(a(50)); 
-border b(t=0, 2*pi) {x=0.2*cos(t)+0.3; y=0.3*sin(t)+0.3; label=1;}; 
-border c(t=0, 2*pi) {x=0.2*cos(t)-0.3; y=0.3*sin(t)+0.3; label=1;};
-border d(t=0,2*pi){ x=0.1*cos(t); y=0.1*sin(t);label=1;} 
-border e(t=pi,2*pi){ x=0.3*cos(t); y=0.1*sin(t)-0.35;label=1;} 
+border b(t=0, 2*pi) {x=0.2*cos(t)+0.3; y=0.3*sin(t)+0.3; label=2;}; 
+border c(t=0, 2*pi) {x=0.2*cos(t)-0.3; y=0.3*sin(t)+0.3; label=3;};
+border d(t=0,2*pi){ x=0.1*cos(t); y=0.1*sin(t);label=4;} 
+border e(t=pi,2*pi){ x=0.3*cos(t); y=0.1*sin(t)-0.35;label=5;} 
 mesh Th = buildmesh(a(50)+b(-50)+c(-50)+d(-50)+e(-50)); 
-plot(Th); 
+// plot(Th); 
+
+
+// Definir f
+func f = x*y;
+
+// Definir el espacio de funciones, sabemos que no estamos resolviendo (1), sino su forma variacional
+// a(u,v) = lv(f)  .... (2)
+// a(u,v) - lv(f) = 0  .... (3)
+fespace Vh(Th, P1);  // escojemos el espacio de polinomios de grado <=1 
+Vh u, v;
+
+// Decir a freefem++ que resuelva (2)
+// Recordar:   a = integral(grad(u).grad(v))   ,   lv(f) = integral(f*v)
+
+// u(x,y) -> grad(u) = (du/dx, du/dy)
+// v(x,y) -> grad(v) = (dv/dx, dv/dy)
+// grad(u).grad(v) = du/dx*dv/dx + du/dy*dv/dy
+
+// la siguiente linea encuentra u con las condiciones de frontera dadas
+solve Poisson2D(u, v, solver=LU) =
+int2d(Th) ( dx(u)*dx(v) + dy(u)*dy(v) )  - int2d(Th) ( f*v ) 
++ on(1, u = 1) + on(2, u = 0.8) + on(3, u = 0.6) + on(4, u = 0.3) + on(5, u = 0);  // condición de frontera
+ 
+// Ahora puedo dibujar u
+plot(u);
+
+
+// Si deseo puedo imprimir valores de u, o bien puedo imprimir todo u
+cout << "El valor de u(0.5,0.4) = " << u(0.5,0.4) << endl;
