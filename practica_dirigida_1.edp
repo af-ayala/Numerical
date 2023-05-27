@@ -1,5 +1,6 @@
 // Estamos tratando de resolver:
 
+
 // -Delta u -f = 0
 
 border a(t=0, 4.5){x=6; y=t; label = 1;}
