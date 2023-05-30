@@ -1,0 +1,41 @@
+// Parameters
+func u0 = 10. + 90.*x/6.;
+
+// Aquí el coeficiente de difusividad térmica no es constante!!
+// si y<0.5, entonces k=1.8*1 + 0.2 = 2
+// si y>=0.5, entonces k=1.8*0 + 0.2 = 0.2
+func k = 1.8*(y<0.5) + 0.2;
+
+real ue = 25.;
+real alpha=0.25;
+real T=5.;
+real dt=0.05 ;
+
+// Malla en 2 dimensiones
+mesh Th = square(30, 5, [6.*x,y]);
+plot(Th);
+
+// Espacio funcional y definición de funciones
+// a comparación de Fenics: usamos u_n en lugar de uold, u_sol en lugar de u
+fespace Vh(Th, P1);
+Vh u=u0, v, uold;
+
+// Definición del problema variacional
+// a(u,v) - lv(f) = 0
+
+problem calor(u, v) = 
+int2d(Th)( u*v/dt + k*( dx(u) * dx(v) + dy(u) * dy(v) ) ) + int1d(Th, 1, 3)( alpha*u*v )
+- int1d(Th, 1, 3)( alpha*ue*v ) - int2d(Th)( uold*v/dt )
++ on(2, 4, u=u0);
+
+// la siguiente línea guarda los datos en el arhivo "calor.dat"
+ofstream ff("calor.dat");
+
+for(real t = 0; t < T; t += dt){
+    uold = u; //equivalente a u^{n-1} = u^n
+    calor; // aquí resuelvo el problema variacional
+    ff << u(3., 0.5) << endl;
+    plot(u);
+}
+
+
