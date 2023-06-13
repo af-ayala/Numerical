@@ -1,12 +1,13 @@
-# Instalar Fenics - Windows - 2023
+# Instalar Fenics en Windows con Virtual Box - Método 1
 
 1. Installar Virtual Box 
 https://www.virtualbox.org/wiki/Downloads
-
 2. Crear su ambiente de Linux
-https://www.youtube.com/watch?v=ZrHVHyIt-PY 
+- https://www.youtube.com/watch?v=ZrHVHyIt-PY 
+- https://www.youtube.com/watch?v=e3g5wpK70Uw
 
-3. Vaya a su terminal y tipee lo siguiente
+
+3. Una vez tenga Linux/Ubuntu, vaya a su terminal y tipee lo siguiente:
 
 ~~~
 sudo add-apt-repository ppa:fenics-packages/fenics
@@ -24,8 +25,13 @@ sudo apt --fix-broken install
 cd Fenics/
 python3 poisson_fenics.py
 ~~~
+# Instalar FreeFem en Windows con Anaconda - Método 2
 
-# Install FreeFem Windows
+1. Ver el tutorial:
+
+https://youtu.be/wFh5gPv_R2c
+
+# Instalar FreeFem en Windows
 
 1. Descargar el ejecutable y seguir los pasos de instalación
 https://www.ljll.math.upmc.fr/lehyaric/ffcs/install.htm

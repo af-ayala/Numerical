@@ -1,4 +1,9 @@
 # %%
+'''
+Correr de la siguiente manera:
+python3 elasticity_3D_23.py
+'''
+
 from fenics import *
 import matplotlib.pyplot as plt
 
@@ -94,7 +99,7 @@ u_sol.rename("Desplazamientos", "")
 von_Mises.rename("Esfuerzos de Von Mises", "")
 
 # Exportamos a Paraview
-archivo_deflexion = XDMFFile("viga_3D_2023/deflexion.xdmf")
+archivo_deflexion = XDMFFile("/home/ayala/Desktop/mi_viga/deflexion.xdmf")
 archivo_deflexion.parameters["flush_output"] = True
 archivo_deflexion.parameters["functions_share_mesh"] = True
 
