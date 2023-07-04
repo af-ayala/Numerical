@@ -39,3 +39,7 @@ Extrude {0,0,-100} {
   Surface{1};
 }
 Show "*";
+//+
+Plane Surface(99) = {1};
+//+
+Curve Loop(3) = {4, 35, -21, -44};
