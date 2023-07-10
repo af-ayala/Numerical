@@ -1,0 +1,5 @@
+load "msh3"
+load "iovtk"
+
+mesh3 Mesh = readmesh3("Portico3D_5P_losas.mesh");
+plot(Mesh);
