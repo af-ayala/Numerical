@@ -1,5 +1,39 @@
 load "msh3"
 load "iovtk"
 
+// Leer la malla
 mesh3 Mesh = readmesh3("Portico3D_5P_losas.mesh");
 plot(Mesh);
+
+// Definir los parámetros del modelo
+func k = 3.74;
+real deltat = 0.1;
+real tTotal = 60;
+
+// Condiciones de borde
+real ub = 360;
+
+// Condicion inicial
+real uo = 30;
+
+// Espacion funcional
+fespace Espacio(Mesh, P1);
+Espacio u=uo, v, un;
+
+// Formulación variacional
+// a(u,v) = lv(f)
+// grad(u) = (du/dx, du/dy, du/dz)
+problem Edificio(u,v) = int3d(Mesh) ( u*v + deltat*( dx(u)*dx(v) + dy(u)*dy(v) + dz(u)*dz(v)) )
+                 - int3d(Mesh) ( un*v )
+                 + on( 1089, u = ub);
+
+// Obtener la solución y Plotear la solución
+int conteo = 0;
+for(real t=0; t< tTotal; t += deltat)
+{
+    un = u;
+    Edificio;
+    if (conteo % 5 == 0 )
+        savevtk("solucion_freefem/iteration-" + conteo + ".vtu", Mesh, u);
+    conteo = conteo + 1;
+}
