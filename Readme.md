@@ -1,8 +1,36 @@
 # Instalar Fenics - métodos nuevos
 
 1. Usando WSL (Windows Sub System for Linux)
-    En este caso correr las instrucciones del método antiguo abajo en su WSL
+    - Ir al powershell
+~~~
+wsl --install
+~~~
+   
+   Reiniciar el sistema y verificar la instalación usando:
+~~~
+wsl --list --verbose
+~~~
+
+En este caso correr las instrucciones del método antiguo abajo en su WSL
+
 2. Usando Google Colab
+~~~
+https://www.colab.research.google.com
+~~~
+
+Ejecutar una celda con:
+
+~~~
+!apt-get install software-properties-common
+
+!add-apt-repository ppa:fenics-packages/fenics
+
+!apt-get update
+
+!apt-get install --no-install-recommends fenics
+~~~
+
+
 
 # Instalar Fenics en Windows con Virtual Box - Método antiguo
 
