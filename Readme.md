@@ -1,4 +1,4 @@
-# Instalar Fenics en Windows con Virtual Box - Método 1
+# Instalar Fenics en Windows con Virtual Box - Método antiguo
 
 1. Installar Virtual Box 
 https://www.virtualbox.org/wiki/Downloads
@@ -25,6 +25,13 @@ sudo apt --fix-broken install
 cd Fenics/
 python3 poisson_fenics.py
 ~~~
+
+# Instalar Fenics - métodos nuevos
+
+1. Usando WSL (Windows Sub System for Linux)
+2. Usando Google Colab
+
+
 # Instalar FreeFem en Windows con Anaconda - Método 2
 
 1. Ver el tutorial:
