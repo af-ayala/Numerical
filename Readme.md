@@ -70,7 +70,20 @@ https://youtu.be/wFh5gPv_R2c
 # Instalar FreeFem en Windows
 
 1. Descargar el ejecutable y seguir los pasos de instalación
-https://www.ljll.math.upmc.fr/lehyaric/ffcs/install.htm
+https://www.ljll.fr/lehyaric/ffcs/
+
+
+# Instalar FreeFem en Ubuntu
+
+1. Descargamos el instalador '.deb'
+
+2. ```sudo dpkg -i FreeFEM-4.15-amd64-ubuntu22.04.deb```
+
+3. Probar que funcione, desde tu terminal corre:
+~~~
+FreeFem++ Numerical/FreeFem/poisson_2D_pez.edp
+~~~
+
 
 # Install Gmsh Windows
 1. Descargar el ejecutable de la página siguiente, seleccionando la opción Windows
