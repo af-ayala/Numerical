@@ -1,0 +1,99 @@
+// Simulación de transferencia de calor transitoria en barra de acero 2D
+// Ecuación: ρ*cp*(∂u/∂t) - k*Δu = f(x,y)
+
+// Parámetros físicos
+real rho = 7850;      // Densidad [kg/m³]
+real cp = 500;        // Capacidad calorífica [J/(kg·K)]
+real k = 50;          // Conductividad térmica [W/(m·K)]
+real alpha = k/(rho*cp); // Difusividad térmica [m²/s]
+
+// Parámetros geométricos (convertir a metros)
+real Lx = 1.0;        // 100cm = 1m
+real Ly = 0.1;        // 10cm = 0.1m (asumiendo espesor de barra)
+
+// Parámetros temporales
+real dt = 0.01;       // Paso de tiempo
+real T = 5.0;         // Tiempo total de simulación
+int nt = T/dt;        // Número de pasos de tiempo
+
+// Temperatura ambiente
+real Tamb = 25.0;     // 25°C
+
+// Definir el dominio rectangular (barra)
+border b1(t=0, Lx) { x=t; y=0; label=1; }      // Borde inferior
+border b2(t=0, Ly) { x=Lx; y=t; label=2; }    // Borde derecho
+border b3(t=Lx, 0) { x=t; y=Ly; label=3; }    // Borde superior
+border b4(t=Ly, 0) { x=0; y=t; label=4; }     // Borde izquierdo
+
+// Crear la malla
+mesh Th = buildmesh(b1(50) + b2(5) + b3(50) + b4(5));
+plot(Th);
+
+// Definir el espacio funcional
+fespace Vh(Th, P1);
+Vh u, v, uold;
+
+// Función fuente f(x,y) = 25 + 200*exp(-100*((x-Lx/2)² + (y-Ly/2)²))
+func real fsource(real x, real y) {
+    return 25 + 200*exp(-100*((x-Lx/2)^2 + (y-Ly/2)^2));
+}
+
+// Condición inicial: temperatura ambiente
+u = Tamb;
+uold = u;
+
+// Matrices para el esquema implícito de Euler
+varf a(u,v) = int2d(Th)(alpha*dt*(dx(u)*dx(v) + dy(u)*dy(v)) + u*v)
+            + on(1,2,3,4, u=Tamb);  // Condiciones de frontera Dirichlet
+
+varf b(u,v) = int2d(Th)(uold*v + dt*fsource(x,y)*v);
+
+
+matrix A = a(Vh,Vh);
+real[int] B(Vh.ndof);
+
+// Solver
+set(A, solver=UMFPACK);
+
+// Visualización inicial
+plot(u, fill=true, value=true, cmm="Temperatura inicial t=0");
+
+// Loop temporal
+for(int n = 1; n <= nt; n++) {
+    real t = n*dt;
+    
+    // Actualizar el término fuente y matriz del lado derecho
+    B = b(0,Vh);
+    
+    // Resolver el sistema Au = B
+    u[] = A^-1 * B;
+    
+    // Actualizar para el siguiente paso
+    uold = u;
+    
+    // Visualizar cada 50 pasos de tiempo
+    if(n % 50 == 0) {
+        plot(u, fill=true, value=true, 
+             cmm="Temperatura t=" + t + "s");
+        cout << "Tiempo: " << t << "s, Temp max: " << u[].max << ", Temp min: " << u[].min << endl;
+    }
+}
+
+// Visualización final
+plot(u, fill=true, value=true, dim=3,
+     cmm="Distribucion final de temperatura");
+
+// Verificación en puntos específicos
+cout << "=== RESULTADOS FINALES ===" << endl;
+cout << "Temperatura en el centro: " << u(Lx/2, Ly/2) << endl;
+cout << "Temperatura en (0.25, 0.05): " << u(0.25, 0.05) << endl;
+cout << "Temperatura en (0.75, 0.05): " << u(0.75, 0.05) << endl;
+
+// Guardar la solución
+{
+    ofstream file("temperatura_final.txt");
+    for(int i = 0; i < Vh.ndof; i++) {
+        file << Th(i).x << " " << Th(i).y << " " << u[][i] << endl;
+    }
+}
+
