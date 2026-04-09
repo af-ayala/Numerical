@@ -1,4 +1,4 @@
-# Instalar Fenics - métodos nuevos
+# Instalar Fenics - métodos nuevos 2026
 
 1. Usando WSL (Windows Sub System for Linux)
     - Ir al powershell
