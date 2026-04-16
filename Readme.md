@@ -70,7 +70,7 @@ https://youtu.be/wFh5gPv_R2c
 # Instalar FreeFem en Windows
 
 1. Descargar el ejecutable y seguir los pasos de instalación
-https://www.ljll.fr/lehyaric/ffcs/
+https://www.ljll.fr/lehyaric/ffcs/install.php
 
 
 # Instalar FreeFem en Ubuntu
